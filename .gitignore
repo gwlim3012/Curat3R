@@ -1,0 +1,10 @@
+# Ignore local env and Python artifacts
+.env
+venv/
+.venv/
+__pycache__/
+*.pyc
+.hf_cache/
+
+# Node / frontend deps (if any)
+node_modules/
