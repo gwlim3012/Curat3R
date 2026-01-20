@@ -37,7 +37,7 @@
 ### 3. 인터랙티브 웹 UI
 - **Next.js** 기반의 직관적인 사용자 인터페이스
 - 실시간 진행 상태 모니터링 (Polling)
-- WebGL 기반 3D 뷰어 (React Three Fiber) 및 썸네일 자동 생성
+- WebGL 기반 3D 뷰어 (React Three Fiber) 및 썸네일 생성
 
 ---
 
