@@ -1,4 +1,4 @@
-# Curat3R: 나만의 3D 박물관 (My 3D Museum)
+# Curat3R: 나만의 3D 박물관 만들기 (Make Your Own 3D Museum)
 
 > **단 한 장의 사진으로 소중한 물건을 3D 디지털 아티팩트로 복원하여 영구 소장하는 웹 서비스**
 
