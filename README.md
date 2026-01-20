@@ -2,7 +2,7 @@
 
 > **단 한 장의 사진으로 소중한 물건을 3D 디지털 아티팩트로 복원하여 영구 소장하는 웹 서비스**
 
-*ToBigs 21th Conference Computer Vision Project*
+*ToBig's 21th Conference Computer Vision Project*
 
 ## 📖 프로젝트 소개
 
