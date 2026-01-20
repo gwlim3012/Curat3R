@@ -120,21 +120,16 @@ export default function HomePage() {
         // 확인 메시지
         const targetFolder = folders.find(f => f.id === targetFolderId);
         if (window.confirm(`'${targetFolder?.name}' 폴더로 이동하시겠습니까?`)) {
-          // [UI 즉시 업데이트 1] 파일 리스트에서 제거
+          // [수정] UI에서 즉시 제거 (복사처럼 보이는 현상 방지)
           setArchives(prev => prev.filter(a => a.id !== sourceArchiveId));
-
-          // [UI 즉시 업데이트 2] 대상 폴더의 fileCount 증가
-          setFolders(prev => prev.map(f => 
-            f.id === targetFolderId 
-              ? { ...f, fileCount: (f.fileCount || 0) + 1 } 
-              : f
-          ));
-
+          
           try {
             await archiveService.updateArchive(sourceArchiveId, { folderId: targetFolderId });
+            // 이동 후 전체 데이터 새로고침
+            await loadData();
           } catch (error) {
             console.error('Move failed', error);
-            loadData();
+            loadData(); // 실패 시 롤백을 위해 다시 로드
           }
         }
       }
@@ -149,31 +144,18 @@ export default function HomePage() {
       const targetFolderId = Number(destination.droppableId.replace('folder-drop-', ''));
       const sourceArchiveId = Number(draggableId.split('-')[1]);
       const targetFolder = folders.find(f => f.id === targetFolderId);
+      
       if (window.confirm(`'${targetFolder?.name}' 폴더로 이동하시겠습니까?`)) {
+        // [수정] UI에서 즉시 제거 (복사처럼 보이는 현상 방지)
         setArchives(prev => prev.filter(a => a.id !== sourceArchiveId));
-        setFolders(prev => prev.map(f => f.id === targetFolderId ? { ...f, fileCount: (f.fileCount || 0) + 1 } : f));
+
         try {
           await archiveService.updateArchive(sourceArchiveId, { folderId: targetFolderId });
-          // If we're currently viewing this folder, refresh its contents and count
-          if (currentFolderId === targetFolderId) {
-            const inFolder = await archiveService.getAllArchives(targetFolderId);
-            setArchives(inFolder);
-            setCurrentFolderCount(inFolder.length);
-          } else {
-            // Otherwise refresh folder list counts
-            const folderData = await archiveService.getAllFolders();
-            const foldersWithCount = await Promise.all(folderData.map(async (f) => {
-              const fa = await archiveService.getAllArchives(f.id);
-              return {
-                id: f.id!, name: f.name!, fileCount: fa.length, thumbnails: fa.slice(0, 3).map(a => a.fileType === 'image' ? URL.createObjectURL(a.fileBlob) : a.thumbnailBlob ? URL.createObjectURL(a.thumbnailBlob) : '').filter(Boolean),
-                createdAt: f.createdAt, updatedAt: f.updatedAt,
-              };
-            }));
-            setFolders(foldersWithCount);
-          }
+          // 이동 후 전체 데이터 새로고침
+          await loadData();
         } catch (err) {
           console.error('Move failed', err);
-          loadData();
+          loadData(); // 실패 시 롤백을 위해 다시 로드
         }
       }
       return;

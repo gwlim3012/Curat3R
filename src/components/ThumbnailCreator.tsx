@@ -31,11 +31,21 @@ class CanvasErrorBoundary extends Component<
 }
 
 // --- 2. 3D Model Component ---
-function Model({ url }: { url: string }) {
+function Model({ url, rotation }: { url: string; rotation: number }) {
   const { scene } = useGLTF(url);
+  const groupRef = useRef<THREE.Group>(null!);
+
+  useEffect(() => {
+    if (groupRef.current) {
+      groupRef.current.rotation.z = rotation;
+    }
+  }, [rotation]);
+
   return (
     <Center>
-      <primitive object={scene} />
+      <group ref={groupRef}>
+        <primitive object={scene} />
+      </group>
     </Center>
   );
 }
@@ -93,6 +103,11 @@ export default function ThumbnailCreator({ modelUrl, onCapture, onSkip }: Thumbn
   // OrbitControls 제어를 위한 Ref
   const controlsRef = useRef<any>(null);
 
+  // Z축 회전을 위한 상태
+  const [modelRotation, setModelRotation] = useState(0);
+  const [isShiftDragging, setIsShiftDragging] = useState(false);
+  const lastMouseXRef = useRef(0);
+
   const presetColors = [
     { name: '스튜디오 그레이', value: '#f8fafc' },
     { name: '오션 폼', value: '#ecfeff' },
@@ -127,6 +142,45 @@ export default function ThumbnailCreator({ modelUrl, onCapture, onSkip }: Thumbn
       window.removeEventListener('keyup', handleKeyUp);
     };
   }, []);
+
+  // Z축 회전을 위한 마우스 이벤트 핸들러
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (e.shiftKey) {
+      setIsShiftDragging(true);
+      lastMouseXRef.current = e.clientX;
+      if (controlsRef.current) {
+        controlsRef.current.enabled = false;
+      }
+      e.preventDefault();
+    }
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (isShiftDragging) {
+      const deltaX = e.clientX - lastMouseXRef.current;
+      setModelRotation((prev) => prev + deltaX * 0.01);
+      lastMouseXRef.current = e.clientX;
+      e.preventDefault();
+    }
+  };
+
+  const handleMouseUp = () => {
+    if (isShiftDragging) {
+      setIsShiftDragging(false);
+      if (controlsRef.current) {
+        controlsRef.current.enabled = true;
+      }
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (isShiftDragging) {
+      setIsShiftDragging(false);
+      if (controlsRef.current) {
+        controlsRef.current.enabled = true;
+      }
+    }
+  };
 
   const handleCapture = async () => {
     if (!captureFuncRef.current || isCapturing) return;
@@ -171,7 +225,13 @@ export default function ThumbnailCreator({ modelUrl, onCapture, onSkip }: Thumbn
         </button>
 
         {/* 왼쪽: 3D 캔버스 영역 (높이를 100% 채움) */}
-        <div className="flex-1 relative bg-slate-50 h-full">
+        <div 
+          className="flex-1 relative bg-slate-50 h-full"
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseLeave}
+        >
           {/* 배경색 적용 */}
           <div className="absolute inset-0 transition-colors duration-500" style={{ backgroundColor }} />
           
@@ -186,7 +246,7 @@ export default function ThumbnailCreator({ modelUrl, onCapture, onSkip }: Thumbn
               
               <Suspense fallback={<Loader />}>
                 <Stage environment="city" intensity={0.6} adjustCamera>
-                  <Model url={modelUrl} />
+                  <Model url={modelUrl} rotation={modelRotation} />
                 </Stage>
                 {/* enablePan={true}로 변경하고 ref를 연결했습니다.
                    이제 위에서 정의한 useEffect가 Shift 키에 따라 동작을 제어합니다.
@@ -210,7 +270,10 @@ export default function ThumbnailCreator({ modelUrl, onCapture, onSkip }: Thumbn
                  <span>🖱️</span> 드래그하여 회전
                </div>
                <div className="bg-white/80 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/50 shadow-sm text-sm font-bold text-slate-500 tracking-wide flex items-center gap-2">
-                 <span>✋</span> Shift + 드래그하여 이동
+                 <span>✋</span> Ctrl + 드래그하여 이동
+               </div>
+               <div className="bg-white/80 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/50 shadow-sm text-sm font-bold text-purple-500 tracking-wide flex items-center gap-2">
+                 <span>🔄</span> Z축 회전: Shift+드래그
                </div>
              </div>
           </div>

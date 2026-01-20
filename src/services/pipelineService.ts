@@ -1,5 +1,5 @@
 /**
- * 파이프라인 서비스: CLIP 필터링 + StableFast3D 3D 재구성
+ * 파이프라인 서비스: YOLO 필터링 + StableFast3D 3D 재구성
  */
 
 const API_BASE_URL = '/api/pipeline';
@@ -99,7 +99,7 @@ class PipelineService {
     const formData = new FormData();
     formData.append('image', imageFile);
 
-    onProgress?.('filtering', 'CLIP 필터링 중...');
+    onProgress?.('filtering', 'YOLO 필터링 중...');
 
     const response = await fetch(`${API_BASE_URL}/process`, {
       method: 'POST',

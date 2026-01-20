@@ -23,12 +23,13 @@ export const archiveService = {
 
   async getAllArchives(folderId?: number | null): Promise<Archive[]> {
     if (typeof folderId !== 'undefined' && folderId !== null) {
-      // where() 쿼리에는 orderBy 불가, sortBy 사용
+      // 특정 폴더의 파일들만 반환
       const arr = await db.archives.where('folderId').equals(folderId).sortBy('createdAt');
       return arr.reverse();
     } else {
-      // 전체 보기: orderBy 사용 가능
-      return await db.archives.orderBy('createdAt').reverse().toArray();
+      // 루트 화면: folderId가 null 또는 undefined인 파일들만 반환
+      const allArchives = await db.archives.orderBy('createdAt').reverse().toArray();
+      return allArchives.filter(a => a.folderId === null || a.folderId === undefined);
     }
   },
   // 폴더 관련 CRUD

@@ -125,9 +125,9 @@ export default function UploadWithPipelinePage() {
     const controller = new AbortController();
     abortControllerRef.current = controller;
 
-    const modelName = selectedModel === 'quality' ? 'Trellis (Quality)' : 'StableFast3D (Fast)';
+    const modelName = selectedModel === 'quality' ? 'Trellis (Quality)' : 'SPAR3D (Fast)';
     const estimatedTime = selectedModel === 'quality' ? '5-10분' : '1-3분';
-    setProgressMessage(`${modelName} 모델로 3D 공간을 구축하고 있어요...`);
+    setProgressMessage(`${modelName} 모델로 3D 모델 생성 중...`);
     
     const startTime = Date.now();
     
@@ -405,7 +405,8 @@ export default function UploadWithPipelinePage() {
                       
                       {progressMessage && (
                         <div className="text-center mt-6">
-                            <p className="text-lg font-bold text-blue-600 animate-pulse mb-3">
+                            <p className="text-lg font-bold text-blue-600 mb-3 flex items-center justify-center gap-3">
+                                <span className="inline-block w-5 h-5 border-3 border-blue-600 border-t-transparent rounded-full animate-spin"></span>
                                 {progressMessage}
                             </p>
                             

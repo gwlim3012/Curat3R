@@ -1,16 +1,26 @@
 'use client';
 
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useThree } from '@react-three/fiber';
 import { OrbitControls, Stage, useGLTF, useProgress, Html } from '@react-three/drei';
-import { Suspense, useState, useEffect } from 'react';
+import { Suspense, useState, useEffect, useRef } from 'react';
+import * as THREE from 'three';
 
 interface ModelProps {
   url: string;
+  rotation: number;
 }
 
-function Model({ url }: ModelProps) {
+function Model({ url, rotation }: ModelProps) {
   const { scene } = useGLTF(url);
-  return <primitive object={scene} />;
+  const modelRef = useRef<THREE.Group>(null);
+  
+  useEffect(() => {
+    if (modelRef.current) {
+      modelRef.current.rotation.z = rotation;
+    }
+  }, [rotation]);
+  
+  return <group ref={modelRef}><primitive object={scene} /></group>;
 }
 
 function Loader() {
@@ -33,6 +43,11 @@ interface ModelViewerProps {
 export default function ModelViewer({ modelUrl, backgroundColor = '#ffffff' }: ModelViewerProps) {
   const [intensity, setIntensity] = useState(1);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [modelRotation, setModelRotation] = useState(0);
+  const [isShiftDragging, setIsShiftDragging] = useState(false);
+  const dragStartX = useRef(0);
+  const startRotation = useRef(0);
+  const canvasRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -52,6 +67,32 @@ export default function ModelViewer({ modelUrl, backgroundColor = '#ffffff' }: M
     };
   }, [isFullscreen]);
 
+  // Shift+드래그로 Z축 회전 (시계바늘 방향)
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (e.shiftKey) {
+      setIsShiftDragging(true);
+      dragStartX.current = e.clientX;
+      startRotation.current = modelRotation;
+      e.preventDefault();
+    }
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (isShiftDragging) {
+      const deltaX = e.clientX - dragStartX.current;
+      const rotationDelta = -(deltaX / 200) * Math.PI; // 시계방향으로 회전
+      setModelRotation(startRotation.current + rotationDelta);
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsShiftDragging(false);
+  };
+
+  const handleMouseLeave = () => {
+    setIsShiftDragging(false);
+  };
+
   return (
     <div 
       className={`transition-all duration-500 ease-in-out ${
@@ -62,12 +103,20 @@ export default function ModelViewer({ modelUrl, backgroundColor = '#ffffff' }: M
       style={!isFullscreen ? { backgroundColor } : undefined}
     >
       
-      <div className={isFullscreen ? 'w-full h-full' : 'w-full h-full'}>
+      <div 
+        ref={canvasRef}
+        className={isFullscreen ? 'w-full h-full' : 'w-full h-full'}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseLeave}
+        style={{ cursor: isShiftDragging ? 'grabbing' : 'default' }}
+      >
         {/* removed patterned overlay to avoid extra box appearing behind the viewer */}
         <Canvas style={{ background: backgroundColor }} camera={{ position: [0, 0, 5], fov: 45 }} shadows dpr={[1, 2]}>
           <Suspense fallback={<Loader />}>
             <Stage environment="city" intensity={intensity} adjustCamera>
-              <Model url={modelUrl} />
+              <Model url={modelUrl} rotation={modelRotation} />
             </Stage>
             <OrbitControls 
               enablePan={true} 
@@ -75,6 +124,23 @@ export default function ModelViewer({ modelUrl, backgroundColor = '#ffffff' }: M
               enableRotate={true}
               makeDefault 
               autoRotate={false}
+              mouseButtons={{
+                LEFT: 0,  // rotate
+                MIDDLE: 1, // zoom (not used in OrbitControls)
+                RIGHT: 2   // pan (not used by default)
+              }}
+              touches={{
+                ONE: 0,  // rotate
+                TWO: 2   // pan/zoom
+              }}
+              keys={{
+                LEFT: 'ArrowLeft',
+                UP: 'ArrowUp',
+                RIGHT: 'ArrowRight',
+                BOTTOM: 'ArrowDown'
+              }}
+              keyPanSpeed={7}
+              panSpeed={0.5}
             />
           </Suspense>
         </Canvas>
@@ -87,7 +153,7 @@ export default function ModelViewer({ modelUrl, backgroundColor = '#ffffff' }: M
              ? 'bg-slate-900/60 border-white/10 text-cyan-100' 
              : 'bg-white/70 border-white/50 text-blue-600 shadow-blue-500/5'
         }`}>
-             회전: 드래그 &nbsp;|&nbsp; 줌: 스크롤 &nbsp;|&nbsp; 이동: Shift+드래그
+             회전: 드래그 &nbsp;|&nbsp; 줌: 스크롤 &nbsp;|&nbsp; Z축 회전: Shift+드래그 &nbsp;|&nbsp; 이동: Ctrl+드래그
         </div>
       </div>
 
