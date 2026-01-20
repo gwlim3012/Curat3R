@@ -2,7 +2,7 @@
 
 > **단 한 장의 사진으로 소중한 물건을 3D 디지털 아티팩트로 복원하여 영구 소장하는 웹 서비스**
 
-*ToBigs Conference Computer Vision Project*
+*ToBigs 21th Conference Computer Vision Project*
 
 ## 📖 프로젝트 소개
 
@@ -71,8 +71,7 @@ Curat3R/
 │  └─ services/              # API 통신 로직
 │
 └─ README.md                 # 프로젝트 문서
-'''
-
+```
 ---
 
 ## ⚙️ 시작 가이드 (Getting Started)
@@ -105,3 +104,4 @@ SPAR3D_ROOT = "/home/user/projects/stable-point-aware-3d"
 # 2. Trellis 설정 (Conda 환경 및 리포지토리 경로)
 TRELLIS_ENV = "/home/user/miniconda3/envs/trellis311/bin/python"
 TRELLIS_ROOT = "/home/user/projects/TRELLIS.2"
+```
