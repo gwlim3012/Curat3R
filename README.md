@@ -110,7 +110,7 @@ TRELLIS_ROOT = "/home/user/projects/TRELLIS.2"
 
 ### 3. 서버 실행 (Run)
 
-**Frontend (Next.js)**
+** 🖥️ Frontend (Next.js)**
 ```bash
 cd src
 npm install
@@ -118,7 +118,7 @@ npm run dev
 # 브라우저 접속: http://localhost:3000
 ```
 
-**Pipeline Server (Flask)**
+** 🧪 Pipeline Server (Flask)**
 ```bash
 cd pipeline
 
@@ -131,7 +131,7 @@ pip install -r requirements.txt
 python pipeline_server.py
 ```
 
-### 환경 변수 (Environment Variables)
+### 🔐 환경 변수 (Environment Variables)
 Hugging Face의 비공개 모델(Gated Model)에 접근해야 할 경우, 아래 환경 변수를 설정하세요.
 ```bash
 export HF_TOKEN="your_huggingface_token"
