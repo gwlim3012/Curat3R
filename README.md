@@ -32,7 +32,7 @@
 | 모드 | 모델 (Model) | 특징 | 소요 시간 |
 |---|---|---|---|
 | **⚡ 빠른 생성 (Fast)** | **SPAR3D** | **자동 배경 제거(Remover)** 포함, 빠른 속도, 일반적인 형상 복원 | **약 30초 ~ 1분** |
-| **💎 고품질 생성 (Quality)** | **Trellis** | 정교한 지오메트리 및 텍스처, 고해상도 메쉬 생성 | **약 5분 ~ 10분** |
+| **💎 고품질 생성 (Quality)** | **Trellis.2** | 정교한 지오메트리 및 텍스처, 고해상도 메쉬 생성 | **약 5분 ~ 10분** |
 
 ### 3. 인터랙티브 웹 UI
 - **Next.js** 기반의 직관적인 사용자 인터페이스
@@ -47,7 +47,7 @@
 |---|---|
 | **Frontend** | Next.js, React, Tailwind CSS, Three.js (React Three Fiber) |
 | **Backend** | Python, Flask |
-| **AI / ML** | PyTorch, CLIP, **SPAR3D**, **Trellis** |
+| **AI / ML** | PyTorch, CLIP, **SPAR3D**, **Trellis.2** |
 | **Infrastructure** | Linux (Ubuntu), NVIDIA GPU (CUDA) |
 
 ---
@@ -82,14 +82,14 @@ Curat3R/
 
 ### 1. 외부 리소스 및 모델 설정 (Prerequisites)
 
-이 프로젝트는 **SPAR3D**와 **Trellis**를 구동하기 위해 각각의 리포지토리와 가상환경이 필요합니다.
+이 프로젝트는 **SPAR3D**와 **Trellis.2**를 구동하기 위해 각각의 리포지토리와 가상환경이 필요합니다.
 
 1.  **SPAR3D (Fast Mode)**
     * Stable-Point-Aware-3D 공식 리포지토리를 클론합니다.
     * `model.safetensors`와 `config.yaml`을 다운로드하여 준비합니다.
-2.  **Trellis (Quality Mode)**
-    * TRELLIS 공식 리포지토리를 클론합니다.
-    * Trellis는 별도의 Conda 환경(예: `trellis311`) 구성을 권장하며, 해당 환경의 Python 실행 경로를 `pipeline_server.py`에 등록해야 합니다.
+2.  **Trellis.2 (Quality Mode)**
+    * TRELLIS.2 공식 리포지토리를 클론합니다.
+    * Trellis.2는 별도의 Conda 환경(예: `trellis311`) 구성을 권장하며, 해당 환경의 Python 실행 경로를 `pipeline_server.py`에 등록해야 합니다.
 
 ### 2. 경로 변수 수정 (Configuration)
 
@@ -102,7 +102,7 @@ Curat3R/
 SF3D_ENV = "/home/user/miniconda3/envs/spar3d/bin/python" 
 SPAR3D_ROOT = "/home/user/projects/stable-point-aware-3d"
 
-# 2. Trellis 설정 (Conda 환경 및 리포지토리 경로)
+# 2. Trellis.2 설정 (Conda 환경 및 리포지토리 경로)
 TRELLIS_ENV = "/home/user/miniconda3/envs/trellis311/bin/python"
 TRELLIS_ROOT = "/home/user/projects/TRELLIS.2"
 ```
@@ -145,7 +145,6 @@ export HF_TOKEN="your_huggingface_token"
 |---|---|---|---|
 | **POST** | `/api/pipeline/filter` | 이미지 적합성 판별 (CLIP) | `form-data`: image |
 | **POST** | `/api/pipeline/reconstruct/<task_id>` | 3D 생성 요청 (Fast/Quality) | JSON: `{ "model": "fast" \| "quality" }` |
-| **GET** | `/api/pipeline/download/<task_id>` | 결과물(glb) 다운로드 | - |
 
 ---
 
@@ -155,7 +154,7 @@ export HF_TOKEN="your_huggingface_token"
 
 1.  **SPAR3D (Stable Point-Aware 3D)** by Stability AI
     - Fast Mode의 핵심 모델로, 단일 이미지에서 포인트 클라우드 기반으로 메쉬를 생성합니다.
-2.  **Trellis** by Microsoft Research
+2.  **Trellis.2** by Microsoft Research
     - Quality Mode의 핵심 모델로, 고품질의 3D 지오메트리와 텍스처를 생성합니다.
 3.  **CLIP** by OpenAI
     - 이미지의 의미론적 분석 및 필터링에 사용됩니다.
