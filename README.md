@@ -25,8 +25,8 @@
 | **김민정** ([@Andante-Kim](https://github.com/Andante-Kim)) | ToBig's 23rd |
 | **김상우** ([@Underove](https://github.com/Underove)) | ToBig's 23rd |
 | **윤정우** ([@airacle100](https://github.com/airacle100)) | ToBig's 24th |
-| **임규원** ([gwlim3012](https://github.com/gwlim3012)) | ToBig's 23rd |
-| **정서영** ([jnalgae](https://github.com/jnalgae)) | ToBig's 23rd |
+| **임규원** ([@gwlim3012](https://github.com/gwlim3012)) | ToBig's 23rd |
+| **정서영** ([@jnalgae](https://github.com/jnalgae)) | ToBig's 23rd |
 
 ---
 
