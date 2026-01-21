@@ -4,13 +4,12 @@
 ![PyTorch](https://img.shields.io/badge/PyTorch-2.1.0-EE4C2C?logo=pytorch&logoColor=white)
 ![Next.js](https://img.shields.io/badge/Next.js-14.0-black?logo=next.js&logoColor=white)
 ![React](https://img.shields.io/badge/React-18.0-61DAFB?logo=react&logoColor=black)
-![Three.js](https://img.shields.io/badge/Three.js-R3F-black?logo=three.js&logoColor=white)
 
 ![Flask](https://img.shields.io/badge/Flask-3.0-000000?logo=flask&logoColor=white)
 ![HuggingFace](https://img.shields.io/badge/%F0%9F%A4%97-Hugging_Face-yellow)
+![Microsoft Research](https://img.shields.io/badge/Microsoft%20Research-0078D4?logo=microsoft&logoColor=white) 
 ![OpenAI](https://img.shields.io/badge/OpenAI-CLIP-412991?logo=openai&logoColor=white)
 ![NVIDIA](https://img.shields.io/badge/NVIDIA-CUDA_12.1-76B900?logo=nvidia&logoColor=white)
-![Microsoft](https://img.shields.io/badge/Microsoft-666666?logo=microsoft&logoColor=white)
 > **단 한 장의 사진으로 소중한 물건을 3D 디지털 아티팩트로 복원하여 영구 소장하는 웹 서비스**
 
 *ToBig's 21th Conference Computer Vision Project*
