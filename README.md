@@ -219,16 +219,16 @@ export HF_TOKEN="your_huggingface_token"
 ## 🖼️ 데모 (Demo)
 
 ### CLIP 필터링 (Image Filtering)
-<img src="./demo_images/filtering/1.png" width="800" alt="CLIP Filtering Example 1" />
-<img src="./demo_images/filtering/2.png" width="800" alt="CLIP Filtering Example 2" />
+<img src="./demo_images/filtering/1.png" width="600" alt="CLIP Filtering Example 1" />
+<img src="./demo_images/filtering/2.png" width="600" alt="CLIP Filtering Example 2" />
 
 ### 3D 생성 결과
 <img src="./demo_images/car.png" width="800" alt="SPAR3D Result" />
 <img src="./demo_images/robot.png" width="800" alt="Trellis.2 Result" />
 
 ### 웹 인터페이스 (Web Interface)
-<img src="./demo_images/web/1.png" width="800" alt="Web Interface 1" />
-<img src="./demo_images/web/2.png" width="800" alt="Web Interface 2" />
+<img src="./demo_images/web/1.png" width="600" alt="Web Interface 1" />
+<img src="./demo_images/web/2.png" width="600" alt="Web Interface 2" />
 
 ---
 
