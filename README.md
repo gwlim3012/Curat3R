@@ -83,6 +83,7 @@ graph LR
     class CLIP,SPAR,Trellis,Gallery blueFill;
     class Select darkFill;
 ```
+---
 
 ## 🛠 기술 스택 (Tech Stack)
 
