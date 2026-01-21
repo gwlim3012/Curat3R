@@ -23,11 +23,11 @@
 
 | 이름 | 소속 |
 |---|---|
-| **김민정** | ToBig's 23rd |
-| **김상우** | ToBig's 23rd |
-| **윤정우** | ToBig's 24th |
-| **임규원** | ToBig's 23rd |
-| **정서영** | ToBig's 23rd |
+| **김민정** ([GitHub](https://github.com/Andante-Kim)) | ToBig's 23rd |
+| **김상우** ([GitHub](https://github.com/Underove)) | ToBig's 23rd |
+| **윤정우** ([GitHub](https://github.com/airacle100)) | ToBig's 24th |
+| **임규원** ([GitHub](https://github.com/gwlim3012)) | ToBig's 23rd |
+| **정서영** ([GitHub](https://github.com/jnalgae)) | ToBig's 23rd |
 
 ---
 
