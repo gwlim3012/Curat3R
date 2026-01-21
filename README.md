@@ -34,6 +34,8 @@
 | **⚡ 빠른 생성 (Fast)** | **SPAR3D** | **자동 배경 제거(Remover)** 포함, 빠른 속도, 일반적인 형상 복원 | **약 30초 ~ 1분** |
 | **💎 고품질 생성 (Quality)** | **Trellis.2** | 정교한 지오메트리 및 텍스처, 고해상도 메쉬 생성 | **약 5분 ~ 10분** |
 
+> **💡 참고:** CLIP 필터가 이미지를 거부(Reject)하더라도, 사용자가 복원을 강력히 원하는 경우 **'Human Override'** 기능을 통해 강제 생성을 요청할 수 있습니다.
+
 ### 3. 인터랙티브 웹 UI
 - **Next.js** 기반의 직관적인 사용자 인터페이스
 - 실시간 진행 상태 모니터링 (Polling)
@@ -41,23 +43,23 @@
 
 ---
 
-## 🏗️ 시스템 아키텍처 (Pipeline Architecture)
+## 🏗️ 시스템 아키텍처 (System Architecture)
 
 ```mermaid
 graph LR
-    %% 노드 정의
-    Upload[🖼️ Image Uploading]
-    CLIP[🔍 CLIP<br/>Image Filtering]
-    Select{Model<br/>Selection}
+    %% 노드 정의 (따옴표로 감싸서 특수문자 오류 방지)
+    Upload["🖼️ Image Uploading"]
+    CLIP["🔍 CLIP<br/>Image Filtering"]
+    Select{"Model<br/>Selection"}
     
-    subgraph Reconstruction [3D Reconstruction]
+    subgraph Reconstruction ["3D Reconstruction"]
         direction TB
-        SPAR[⚡ SPAR 3D<br/>(Fast)]
-        Trellis[💎 TRELLIS.2<br/>(Quality)]
+        SPAR["⚡ SPAR 3D<br/>(Fast)"]
+        Trellis["💎 TRELLIS.2<br/>(Quality)"]
     end
     
-    Feed[📂 User-Custom<br/>Feed]
-    Gallery[🏛️ 3D Gallery<br/>Three.js / WebGL]
+    Feed["📂 User-Custom<br/>Feed"]
+    Gallery["🏛️ 3D Gallery<br/>Three.js / WebGL"]
 
     %% 흐름 연결
     Upload --> CLIP
