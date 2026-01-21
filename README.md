@@ -165,7 +165,7 @@ TRELLIS_ROOT = "/home/user/projects/TRELLIS.2"
 
 ### 3. 서버 실행 (Run)
 
-** Frontend (Next.js)**
+**Frontend (Next.js)**
 ```bash
 cd src
 npm install
@@ -173,7 +173,7 @@ npm run dev
 # 브라우저 접속: http://localhost:3000
 ```
 
-** Pipeline Server (Flask)**
+**Pipeline Server (Flask)**
 ```bash
 cd pipeline
 
