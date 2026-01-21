@@ -220,7 +220,8 @@ export HF_TOKEN="your_huggingface_token"
 
 ### CLIP 필터링 (Image Filtering)
 <img src="./demo_images/filtering/1.png" width="600" alt="CLIP Filtering Example 1" />
-<img src="./demo_images/filtering/2.png" width="600" alt="CLIP Filtering Example 2" />
+<img src="./demo_images/filtering/3.png" width="600" alt="CLIP Filtering Example 2" />
+<img src="./demo_images/filtering/4.png" width="600" alt="CLIP Filtering Example 2" />
 
 ### 3D 생성 결과
 <img src="./demo_images/car.png" width="800" alt="SPAR3D Result" />
