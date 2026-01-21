@@ -1,8 +1,8 @@
 # Curat3R: 나만의 3D 박물관 만들기 (Make Your Own 3D Museum)
 > 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python&logoColor=white)
-![Next.js](https://img.shields.io/badge/Next.js-14.0-black?logo=next.js&logoColor=white)
 ![PyTorch](https://img.shields.io/badge/PyTorch-2.1-red?logo=pytorch&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-14.0-black?logo=next.js&logoColor=white)
 > **단 한 장의 사진으로 소중한 물건을 3D 디지털 아티팩트로 복원하여 영구 소장하는 웹 서비스**
 
 *ToBig's 21th Conference Computer Vision Project*
